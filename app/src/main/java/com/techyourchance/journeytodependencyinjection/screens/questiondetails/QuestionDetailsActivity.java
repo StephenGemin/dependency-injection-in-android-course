@@ -6,6 +6,7 @@
  import android.support.v4.app.FragmentManager;
  import android.support.v7.app.AppCompatActivity;
  import android.text.Html;
+ import android.view.LayoutInflater;
  import android.widget.TextView;
 
  import com.techyourchance.journeytodependencyinjection.Constants;
@@ -21,7 +22,7 @@
  import retrofit2.converter.gson.GsonConverterFactory;
 
  public class QuestionDetailsActivity extends AppCompatActivity implements
-         Callback<SingleQuestionResponseSchema> {
+         Callback<SingleQuestionResponseSchema>, QuestionDetailsViewMvc.Listener {
 
      public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
 
@@ -31,20 +32,20 @@
          context.startActivity(intent);
      }
 
-     private TextView mTxtQuestionBody;
-
      private StackoverflowApi mStackoverflowApi;
 
      private Call<SingleQuestionResponseSchema> mCall;
 
      private String mQuestionId;
 
+     private QuestionDetailsViewMvc mViewMvc;
+
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         setContentView(R.layout.layout_question_details);
 
-         mTxtQuestionBody = findViewById(R.id.txt_question_body);
+         mViewMvc = new QuestionDetailsViewMvcImpl(LayoutInflater.from(this), null);
+         setContentView(mViewMvc.getRootView());
 
          Retrofit retrofit = new Retrofit.Builder()
                  .baseUrl(Constants.BASE_URL)
@@ -61,6 +62,7 @@
      @Override
      protected void onStart() {
          super.onStart();
+         mViewMvc.registerListener(this);
          mCall = mStackoverflowApi.questionDetails(mQuestionId);
          mCall.enqueue(this);
      }
@@ -68,6 +70,7 @@
      @Override
      protected void onStop() {
          super.onStop();
+         mViewMvc.unregisterListener(this);
          if (mCall != null) {
              mCall.cancel();
          }
@@ -77,12 +80,7 @@
      public void onResponse(Call<SingleQuestionResponseSchema> call, Response<SingleQuestionResponseSchema> response) {
          SingleQuestionResponseSchema questionResponseSchema;
          if (response.isSuccessful() && (questionResponseSchema = response.body()) != null) {
-             String questionBody = questionResponseSchema.getQuestion().getBody();
-             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                 mTxtQuestionBody.setText(Html.fromHtml(questionBody,Html.FROM_HTML_MODE_LEGACY));
-             } else {
-                 mTxtQuestionBody.setText(Html.fromHtml(questionBody));
-             }
+             mViewMvc.bindQuestion(questionResponseSchema.getQuestion());
          }else {
              onFailure(call, null);
          }
