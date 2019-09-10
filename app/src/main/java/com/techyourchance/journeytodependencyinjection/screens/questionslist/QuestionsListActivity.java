@@ -1,10 +1,11 @@
  package com.techyourchance.journeytodependencyinjection.screens.questionslist;
 
  import android.os.Bundle;
- import android.support.v4.app.FragmentManager;
  import android.support.v7.app.AppCompatActivity;
  import android.view.LayoutInflater;
 
+ import com.techyourchance.journeytodependencyinjection.MyApplication;
+ import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
  import com.techyourchance.journeytodependencyinjection.questions.Question;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
@@ -14,20 +15,24 @@
  import java.util.List;
 
  public class QuestionsListActivity extends AppCompatActivity
-         implements QuestionsListViewMvc.Listener, FetchQuestionsListUseCase.Listener {
+         implements QuestionsListViewMvc.Listener,
+         FetchQuestionsListUseCase.Listener {
 
      private static final int NUM_OF_QUESTIONS_TO_FETCH = 20;
      private FetchQuestionsListUseCase mFetchQuestionsListUseCase;
      private QuestionsListViewMvc mViewMvc;
      private DialogsManager mDialogsManager;
 
+
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
-         mFetchQuestionsListUseCase = new FetchQuestionsListUseCase();
          mDialogsManager = new DialogsManager(getSupportFragmentManager());
          setContentView(mViewMvc.getRootView());
+         StackoverflowApi stackoverflowApi = ((MyApplication) getApplication())
+                 .getStackOverflowApi();
+         mFetchQuestionsListUseCase = new FetchQuestionsListUseCase(stackoverflowApi);
      }
 
      @Override

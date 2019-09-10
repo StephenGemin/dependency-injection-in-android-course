@@ -6,6 +6,8 @@
  import android.support.v7.app.AppCompatActivity;
  import android.view.LayoutInflater;
 
+ import com.techyourchance.journeytodependencyinjection.MyApplication;
+ import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
  import com.techyourchance.journeytodependencyinjection.questions.QuestionWithBody;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
@@ -33,12 +35,13 @@
 
          mViewMvc = new QuestionDetailsViewMvcImpl(LayoutInflater.from(this), null);
          setContentView(mViewMvc.getRootView());
-
-        mfetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase();
+         StackoverflowApi stackoverflowApi = ((MyApplication) getApplication())
+                 .getStackOverflowApi();
+         mfetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(stackoverflowApi);
 
          //noinspection ConstantConditions
          mQuestionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
-        mDialogsManager = new DialogsManager(getSupportFragmentManager());
+         mDialogsManager = new DialogsManager(getSupportFragmentManager());
      }
 
      @Override

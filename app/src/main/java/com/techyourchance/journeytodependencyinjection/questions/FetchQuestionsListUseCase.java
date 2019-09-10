@@ -2,7 +2,6 @@ package com.techyourchance.journeytodependencyinjection.questions;
 
 import android.support.annotation.Nullable;
 
-import com.techyourchance.journeytodependencyinjection.Constants;
 import com.techyourchance.journeytodependencyinjection.networking.QuestionsListResponseSchema;
 import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
 import com.techyourchance.journeytodependencyinjection.screens.common.BaseObservable;
@@ -13,8 +12,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Stephen Gemin on 9/7/2019
@@ -29,13 +26,8 @@ public class FetchQuestionsListUseCase extends BaseObservable<FetchQuestionsList
     private StackoverflowApi mStackoverflowApi;
     @Nullable Call<QuestionsListResponseSchema> mCall;
 
-    public FetchQuestionsListUseCase() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        mStackoverflowApi = retrofit.create(StackoverflowApi.class);
+    public FetchQuestionsListUseCase(StackoverflowApi stackoverflowApi) {
+        mStackoverflowApi = stackoverflowApi;
     }
 
     public void fetchLastActiveQuestionsAndNotify(int numOfQuestions) {
