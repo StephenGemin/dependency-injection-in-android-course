@@ -9,6 +9,7 @@
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
  import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
+ import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsViewMvc;
 
  import java.util.List;
 
@@ -25,7 +26,8 @@
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
+         mViewMvc = getCompositionRoot().getViewMvcFactory().newInstance(
+                 QuestionsListViewMvc.class, null);
 
          setContentView(mViewMvc.getRootView());
 

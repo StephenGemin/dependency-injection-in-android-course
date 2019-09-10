@@ -31,7 +31,9 @@
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
 
-         mViewMvc = new QuestionDetailsViewMvcImpl(LayoutInflater.from(this), null);
+         mViewMvc = getCompositionRoot().getViewMvcFactory().newInstance(
+                 QuestionDetailsViewMvc.class,null);
+
          setContentView(mViewMvc.getRootView());
          mfetchQuestionDetailsUseCase = getCompositionRoot().getFetchQuestionDetailsUseCase();
 
