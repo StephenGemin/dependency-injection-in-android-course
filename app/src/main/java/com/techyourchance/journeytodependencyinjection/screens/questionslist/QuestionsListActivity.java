@@ -7,7 +7,8 @@
 
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
  import com.techyourchance.journeytodependencyinjection.questions.Question;
- import com.techyourchance.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
+ import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
+ import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
  import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 
  import java.util.List;
@@ -18,12 +19,14 @@
      private static final int NUM_OF_QUESTIONS_TO_FETCH = 20;
      private FetchQuestionsListUseCase mFetchQuestionsListUseCase;
      private QuestionsListViewMvc mViewMvc;
+     private DialogsManager mDialogsManager;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
          mFetchQuestionsListUseCase = new FetchQuestionsListUseCase();
+         mDialogsManager = new DialogsManager(getSupportFragmentManager());
          setContentView(mViewMvc.getRootView());
      }
 
@@ -56,9 +59,6 @@
 
      @Override
      public void onFetchOfQuestionsFailed() {
-         FragmentManager fragmentManager = getSupportFragmentManager();
-         fragmentManager.beginTransaction()
-                 .add(ServerErrorDialogFragment.newInstance(), null)
-                 .commitAllowingStateLoss();
+         mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
      }
  }

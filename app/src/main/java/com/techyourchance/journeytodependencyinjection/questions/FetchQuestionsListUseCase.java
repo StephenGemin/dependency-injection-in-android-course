@@ -1,13 +1,11 @@
 package com.techyourchance.journeytodependencyinjection.questions;
 
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 
 import com.techyourchance.journeytodependencyinjection.Constants;
 import com.techyourchance.journeytodependencyinjection.networking.QuestionsListResponseSchema;
 import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
 import com.techyourchance.journeytodependencyinjection.screens.common.BaseObservable;
-import com.techyourchance.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 
 import java.util.Collections;
 import java.util.List;
