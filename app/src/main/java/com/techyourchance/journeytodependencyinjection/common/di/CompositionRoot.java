@@ -19,7 +19,7 @@ public class CompositionRoot {
     private StackoverflowApi mStackoverflowApi;
 
     @UiThread
-    public Retrofit getRetrofit() {
+    private Retrofit getRetrofit() {
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
@@ -30,7 +30,7 @@ public class CompositionRoot {
     }
 
     @UiThread
-    public StackoverflowApi getStackoverflowApi() {
+    private StackoverflowApi getStackoverflowApi() {
         if (mStackoverflowApi == null) {
             mStackoverflowApi = getRetrofit().create(StackoverflowApi.class);
         }
