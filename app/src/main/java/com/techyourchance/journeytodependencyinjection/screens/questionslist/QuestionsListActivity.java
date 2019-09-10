@@ -5,7 +5,6 @@
  import android.view.LayoutInflater;
 
  import com.techyourchance.journeytodependencyinjection.MyApplication;
- import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
  import com.techyourchance.journeytodependencyinjection.questions.Question;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
@@ -30,9 +29,8 @@
          mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
          mDialogsManager = new DialogsManager(getSupportFragmentManager());
          setContentView(mViewMvc.getRootView());
-         StackoverflowApi stackoverflowApi = ((MyApplication) getApplication())
-                 .getStackOverflowApi();
-         mFetchQuestionsListUseCase = new FetchQuestionsListUseCase(stackoverflowApi);
+         mFetchQuestionsListUseCase = ((MyApplication) getApplication())
+                 .getFetchQuestionsListUseCase();
      }
 
      @Override
