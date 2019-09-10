@@ -30,7 +30,7 @@
          mDialogsManager = new DialogsManager(getSupportFragmentManager());
          setContentView(mViewMvc.getRootView());
          mFetchQuestionsListUseCase = ((MyApplication) getApplication())
-                 .getFetchQuestionsListUseCase();
+                 .getCompositionRoot().getFetchQuestionsListUseCase();
      }
 
      @Override

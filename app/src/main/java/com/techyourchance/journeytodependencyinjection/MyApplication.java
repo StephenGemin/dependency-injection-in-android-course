@@ -1,50 +1,23 @@
 package com.techyourchance.journeytodependencyinjection;
 
 import android.app.Application;
-import android.support.annotation.UiThread;
 
-import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
-import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
-import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.techyourchance.journeytodependencyinjection.common.di.CompositionRoot;
 
 /**
  * Created by Stephen Gemin on 9/9/2019
  */
 public class MyApplication extends Application {
 
-    private Retrofit mRetrofit;
-    private StackoverflowApi mStackOverflowApi;
+    private CompositionRoot mCompositionRoot;
 
-    @UiThread
-    public Retrofit getRetrofit() {
-        if (mRetrofit == null) {
-             mRetrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-        }
-        return mRetrofit;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mCompositionRoot = new CompositionRoot();
     }
 
-    @UiThread
-    public StackoverflowApi getStackOverflowApi() {
-        if (mStackOverflowApi == null) {
-            mStackOverflowApi = getRetrofit().create(StackoverflowApi.class);
-        }
-        return mStackOverflowApi;
-    }
-
-    @UiThread
-    public FetchQuestionsListUseCase getFetchQuestionsListUseCase() {
-        return new FetchQuestionsListUseCase(getStackOverflowApi());
-    }
-
-    @UiThread
-    public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase() {
-        return new FetchQuestionDetailsUseCase(getStackOverflowApi());
+    public CompositionRoot getCompositionRoot() {
+        return mCompositionRoot;
     }
 }

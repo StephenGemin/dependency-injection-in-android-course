@@ -35,7 +35,7 @@
          mViewMvc = new QuestionDetailsViewMvcImpl(LayoutInflater.from(this), null);
          setContentView(mViewMvc.getRootView());
          mfetchQuestionDetailsUseCase = ((MyApplication) getApplication())
-                 .getFetchQuestionDetailsUseCase();
+                 .getCompositionRoot().getFetchQuestionDetailsUseCase();
 
          //noinspection ConstantConditions
          mQuestionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
