@@ -1,10 +1,9 @@
  package com.techyourchance.journeytodependencyinjection.screens.questionslist;
 
  import android.os.Bundle;
- import android.support.v7.app.AppCompatActivity;
  import android.view.LayoutInflater;
 
- import com.techyourchance.journeytodependencyinjection.MyApplication;
+ import com.techyourchance.journeytodependencyinjection.common.activities.BaseActivity;
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
  import com.techyourchance.journeytodependencyinjection.questions.Question;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
@@ -13,7 +12,7 @@
 
  import java.util.List;
 
- public class QuestionsListActivity extends AppCompatActivity
+ public class QuestionsListActivity extends BaseActivity
          implements QuestionsListViewMvc.Listener,
          FetchQuestionsListUseCase.Listener {
 
@@ -29,8 +28,7 @@
          mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
          mDialogsManager = new DialogsManager(getSupportFragmentManager());
          setContentView(mViewMvc.getRootView());
-         mFetchQuestionsListUseCase = ((MyApplication) getApplication())
-                 .getCompositionRoot().getFetchQuestionsListUseCase();
+         mFetchQuestionsListUseCase = getCompositionRoot().getFetchQuestionsListUseCase();
      }
 
      @Override
