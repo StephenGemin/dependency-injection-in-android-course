@@ -16,7 +16,7 @@ import retrofit2.Response;
 public class FetchQuestionDetailsUseCase extends BaseObservable<FetchQuestionDetailsUseCase.Listener> {
 
     public interface Listener {
-        void onFetchQuestionDetailsSucceeded(QuestionWithBody question);
+        void onFetchQuestionDetailsSucceeded(QuestionDetails question);
         void onFetchOfQuestionDetailsFailed();
     }
 
@@ -27,7 +27,7 @@ public class FetchQuestionDetailsUseCase extends BaseObservable<FetchQuestionDet
         mstackoverflowApi = stackoverflowApi;
     }
 
-    public void fetchQuestionDetailsAndNotify(String questionId) {
+    public void fetchQuestionDetailsAndNotify(final String questionId) {
 
         cancelCurrentFetchIfActive();
         mCall = mstackoverflowApi.questionDetails(questionId);
@@ -35,7 +35,7 @@ public class FetchQuestionDetailsUseCase extends BaseObservable<FetchQuestionDet
             @Override
             public void onResponse(Call<SingleQuestionResponseSchema> call, Response<SingleQuestionResponseSchema> response) {
                 if (response.isSuccessful()) {
-                    notifySucceeded(response.body().getQuestion());
+                    notifySucceeded(questionDetailsFromQuestionSchema(response.body().getQuestion()));
                 } else {
                     notifyFailed();
                 }
@@ -48,7 +48,16 @@ public class FetchQuestionDetailsUseCase extends BaseObservable<FetchQuestionDet
         });
     }
 
-    private void notifySucceeded(QuestionWithBody question) {
+    private QuestionDetails questionDetailsFromQuestionSchema(QuestionSchema question) {
+        return new QuestionDetails(
+                question.getId(),
+                question.getTitle(),
+                question.getBody(),
+                question.getOwner().getmUserDisplayName(),
+                question.getOwner().getmUserAvatarUrl());
+    }
+
+    private void notifySucceeded(QuestionDetails question) {
         for (Listener listener: getListeners()) {
             listener.onFetchQuestionDetailsSucceeded(question);
         }

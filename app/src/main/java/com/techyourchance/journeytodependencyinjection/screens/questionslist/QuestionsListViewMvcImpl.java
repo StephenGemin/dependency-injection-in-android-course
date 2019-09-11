@@ -23,6 +23,7 @@ public class QuestionsListViewMvcImpl extends BaseViewMvc<QuestionsListViewMvc.L
     private RecyclerView mRecyclerView;
     private QuestionsAdapter mQuestionsAdapter;
 
+
     public QuestionsListViewMvcImpl(LayoutInflater inflater, ViewGroup containter) {
         setRootView(inflater.inflate(R.layout.layout_questions_list, containter, false));
 

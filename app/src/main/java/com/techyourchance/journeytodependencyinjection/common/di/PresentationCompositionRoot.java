@@ -1,10 +1,13 @@
 package com.techyourchance.journeytodependencyinjection.common.di;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
+import com.techyourchance.journeytodependencyinjection.screens.common.ImageLoader;
 import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
 import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.ViewMvcFactory;
 
@@ -14,19 +17,28 @@ import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.V
 public class PresentationCompositionRoot {
 
     private final CompositionRoot mCompositionRoot;
-    private final FragmentManager mFragmentManager;
-    private LayoutInflater mLayoutInflater;
+    private final AppCompatActivity mActivity;
 
     public PresentationCompositionRoot(CompositionRoot compositionRoot,
-                                       FragmentManager fragmentManager,
-                                       LayoutInflater layoutInflater) {
+                                       AppCompatActivity activity) {
         mCompositionRoot = compositionRoot;
-        mFragmentManager = fragmentManager;
-        mLayoutInflater = layoutInflater;
+        mActivity = activity;
     }
 
     public DialogsManager getDialogsManager() {
-        return new DialogsManager(mFragmentManager);
+        return new DialogsManager(getFragmentManager());
+    }
+
+    private FragmentManager getFragmentManager() {
+        return mActivity.getSupportFragmentManager();
+    }
+
+    private LayoutInflater getLayoutInflater() {
+        return LayoutInflater.from(mActivity);
+    }
+
+    public Activity getActivity() {
+        return mActivity;
     }
 
     public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase() {
@@ -37,8 +49,12 @@ public class PresentationCompositionRoot {
         return mCompositionRoot.getFetchQuestionsListUseCase();
     }
 
+    private ImageLoader getImageLoader() {
+        return new ImageLoader(getActivity());
+    }
+
     public ViewMvcFactory getViewMvcFactory() {
-        return new ViewMvcFactory(mLayoutInflater);
+        return new ViewMvcFactory(getLayoutInflater(), getImageLoader());
     }
 
 }

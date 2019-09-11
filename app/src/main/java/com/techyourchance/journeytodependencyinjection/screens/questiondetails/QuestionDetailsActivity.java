@@ -3,11 +3,10 @@
  import android.content.Context;
  import android.content.Intent;
  import android.os.Bundle;
- import android.view.LayoutInflater;
 
  import com.techyourchance.journeytodependencyinjection.common.activities.BaseActivity;
  import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
- import com.techyourchance.journeytodependencyinjection.questions.QuestionWithBody;
+ import com.techyourchance.journeytodependencyinjection.questions.QuestionDetails;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
 
@@ -58,7 +57,7 @@
      }
 
      @Override
-     public void onFetchQuestionDetailsSucceeded(QuestionWithBody question) {
+     public void onFetchQuestionDetailsSucceeded(QuestionDetails question) {
         mViewMvc.bindQuestion(question);
      }
 
