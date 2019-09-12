@@ -8,6 +8,7 @@
  import com.techyourchance.journeytodependencyinjection.questions.Question;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
+ import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.ViewMvcFactory;
  import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
  import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsViewMvc;
 
@@ -18,21 +19,22 @@
          FetchQuestionsListUseCase.Listener {
 
      private static final int NUM_OF_QUESTIONS_TO_FETCH = 20;
-     private FetchQuestionsListUseCase mFetchQuestionsListUseCase;
+     public FetchQuestionsListUseCase mFetchQuestionsListUseCase;
+     public DialogsManager mDialogsManager;
+     public ViewMvcFactory mViewMvcFactory;
+
      private QuestionsListViewMvc mViewMvc;
-     private DialogsManager mDialogsManager;
 
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         mViewMvc = getCompositionRoot().getViewMvcFactory().newInstance(
+         getInjector().inject(this);
+
+         mViewMvc = mViewMvcFactory.newInstance(
                  QuestionsListViewMvc.class, null);
 
          setContentView(mViewMvc.getRootView());
-
-         mDialogsManager = getCompositionRoot().getDialogsManager();
-         mFetchQuestionsListUseCase = getCompositionRoot().getFetchQuestionsListUseCase();
      }
 
      @Override

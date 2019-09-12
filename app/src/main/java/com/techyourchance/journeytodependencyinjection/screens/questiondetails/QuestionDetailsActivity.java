@@ -9,6 +9,7 @@
  import com.techyourchance.journeytodependencyinjection.questions.QuestionDetails;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.DialogsManager;
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
+ import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.ViewMvcFactory;
 
  public class QuestionDetailsActivity extends BaseActivity implements
          QuestionDetailsViewMvc.Listener, FetchQuestionDetailsUseCase.Listener {
@@ -23,22 +24,22 @@
 
      private String mQuestionId;
      private QuestionDetailsViewMvc mViewMvc;
-     private FetchQuestionDetailsUseCase mfetchQuestionDetailsUseCase;
-     private DialogsManager mDialogsManager;
+     public FetchQuestionDetailsUseCase mfetchQuestionDetailsUseCase;
+     public DialogsManager mDialogsManager;
+     public ViewMvcFactory mViewMvcFactory;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
+         getInjector().inject(this);
 
-         mViewMvc = getCompositionRoot().getViewMvcFactory().newInstance(
+         mViewMvc = mViewMvcFactory.newInstance(
                  QuestionDetailsViewMvc.class,null);
 
          setContentView(mViewMvc.getRootView());
-         mfetchQuestionDetailsUseCase = getCompositionRoot().getFetchQuestionDetailsUseCase();
 
          //noinspection ConstantConditions
          mQuestionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
-         mDialogsManager = getCompositionRoot().getDialogsManager();
      }
 
      @Override
