@@ -14,23 +14,22 @@ import com.techyourchance.journeytodependencyinjection.common.di.PresentationCom
  */
 public class BaseActivity extends AppCompatActivity {
 
-    private PresentationCompositionRoot mPresentationCompositionRoot;
+    private boolean mIsInjectorUsed;
 
     /**
      * Has activity lifecycle
      */
     @UiThread
     protected Injector getInjector() {
+        if (mIsInjectorUsed) {
+            throw new RuntimeException("There is no need to use injector more than once");
+        }
+        mIsInjectorUsed = true;
         return new Injector(getCompositionRoot());
     }
 
     private PresentationCompositionRoot getCompositionRoot() {
-        if (mPresentationCompositionRoot == null) {
-            mPresentationCompositionRoot = new PresentationCompositionRoot(
-                    getAppCompositionRoot(),
-                    this);
-        }
-        return mPresentationCompositionRoot;
+        return new PresentationCompositionRoot(getAppCompositionRoot(), this);
     }
 
     /**
