@@ -1,6 +1,7 @@
 package com.techyourchance.journeytodependencyinjection.common.di;
 
 
+import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
 import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 import com.techyourchance.journeytodependencyinjection.screens.questionslist.QuestionsListActivity;
 
@@ -9,10 +10,10 @@ import com.techyourchance.journeytodependencyinjection.screens.questionslist.Que
  */
 public class Injector {
 
-    private final PresentationCompositionRoot mPresentationCompositionRoot;
+    private final PresentationComponent mPresentationComponent;
 
-    public Injector(PresentationCompositionRoot presentationCompositionRoot) {
-        mPresentationCompositionRoot = presentationCompositionRoot;
+    public Injector(PresentationComponent presentationComponent) {
+        mPresentationComponent = presentationComponent;
     }
 
     public void inject(Object client) {
@@ -28,14 +29,14 @@ public class Injector {
     }
 
     private void injectQuestionsListActivity(QuestionsListActivity client) {
-        client.mViewMvcFactory = mPresentationCompositionRoot.getViewMvcFactory();
-        client.mDialogsManager = mPresentationCompositionRoot.getDialogsManager();
-        client.mFetchQuestionsListUseCase = mPresentationCompositionRoot.getFetchQuestionsListUseCase();
+        client.mViewMvcFactory = mPresentationComponent.getViewMvcFactory();
+        client.mDialogsManager = mPresentationComponent.getDialogsManager();
+        client.mFetchQuestionsListUseCase = mPresentationComponent.getFetchQuestionsListUseCase();
     }
     private void injectQuestionDetailsActvity (QuestionDetailsActivity client) {
-        client.mViewMvcFactory = mPresentationCompositionRoot.getViewMvcFactory();
-        client.mDialogsManager = mPresentationCompositionRoot.getDialogsManager();
-        client.mfetchQuestionDetailsUseCase = mPresentationCompositionRoot.getFetchQuestionDetailsUseCase();
+        client.mViewMvcFactory = mPresentationComponent.getViewMvcFactory();
+        client.mDialogsManager = mPresentationComponent.getDialogsManager();
+        client.mfetchQuestionDetailsUseCase = mPresentationComponent.getFetchQuestionDetailsUseCase();
     }
 
 }

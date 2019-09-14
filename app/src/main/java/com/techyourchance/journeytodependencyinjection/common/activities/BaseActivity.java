@@ -4,8 +4,10 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 
 import com.techyourchance.journeytodependencyinjection.common.di.Injector;
-import com.techyourchance.journeytodependencyinjection.common.di.PresentationCompositionRoot;
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerPresentationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
 
 /**
  * Created by Stephen Gemin on 9/9/2019
@@ -23,11 +25,13 @@ public class BaseActivity extends AppCompatActivity {
             throw new RuntimeException("There is no need to use injector more than once");
         }
         mIsInjectorUsed = true;
-        return new Injector(getCompositionRoot());
+        return new Injector(getPresentationComponent());
     }
 
-    private PresentationCompositionRoot getCompositionRoot() {
-        return new PresentationCompositionRoot(getApplicationComponent(), this);
+    private PresentationComponent getPresentationComponent() {
+        return DaggerPresentationComponent.builder()
+                .presentationModule(new PresentationModule(getApplicationComponent(), this))
+                .build();
     }
 
     /**
