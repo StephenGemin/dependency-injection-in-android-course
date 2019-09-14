@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
+import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
 import com.techyourchance.journeytodependencyinjection.screens.common.ImageLoader;
@@ -16,12 +17,12 @@ import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.V
  */
 public class PresentationCompositionRoot {
 
-    private final CompositionRoot mCompositionRoot;
+    private final ApplicationComponent mApplicationComponent;
     private final AppCompatActivity mActivity;
 
-    public PresentationCompositionRoot(CompositionRoot compositionRoot,
+    public PresentationCompositionRoot(ApplicationComponent applicationComponent,
                                        AppCompatActivity activity) {
-        mCompositionRoot = compositionRoot;
+        mApplicationComponent = applicationComponent;
         mActivity = activity;
     }
 
@@ -42,11 +43,11 @@ public class PresentationCompositionRoot {
     }
 
     public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase() {
-        return mCompositionRoot.getFetchQuestionDetailsUseCase();
+        return mApplicationComponent.getFetchQuestionDetailsUseCase();
     }
 
     public FetchQuestionsListUseCase getFetchQuestionsListUseCase() {
-        return mCompositionRoot.getFetchQuestionsListUseCase();
+        return mApplicationComponent.getFetchQuestionsListUseCase();
     }
 
     private ImageLoader getImageLoader() {
