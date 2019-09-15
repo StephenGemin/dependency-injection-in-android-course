@@ -1,4 +1,4 @@
-package com.techyourchance.journeytodependencyinjection.common.activities;
+package com.techyourchance.journeytodependencyinjection.common.base;
 
 import android.app.Application;
 

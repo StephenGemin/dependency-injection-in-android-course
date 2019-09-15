@@ -1,4 +1,4 @@
-package com.techyourchance.journeytodependencyinjection.common.activities;
+package com.techyourchance.journeytodependencyinjection.common.base;
 
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;

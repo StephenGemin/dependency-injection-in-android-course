@@ -3,7 +3,7 @@ package com.techyourchance.journeytodependencyinjection.screens.common.dialogs;
 import android.support.annotation.UiThread;
 import android.support.v4.app.DialogFragment;
 
-import com.techyourchance.journeytodependencyinjection.common.activities.BaseApplication;
+import com.techyourchance.journeytodependencyinjection.common.base.BaseApplication;
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;

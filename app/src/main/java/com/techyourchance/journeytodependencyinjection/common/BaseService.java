@@ -3,10 +3,10 @@ package com.techyourchance.journeytodependencyinjection.common;
 import android.app.Service;
 import android.support.annotation.UiThread;
 
-import com.techyourchance.journeytodependencyinjection.MyApplication;
-import com.techyourchance.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
-import com.techyourchance.journeytodependencyinjection.common.dependencyinjection.service.ServiceComponent;
-import com.techyourchance.journeytodependencyinjection.common.dependencyinjection.service.ServiceModule;
+import com.techyourchance.journeytodependencyinjection.common.base.BaseApplication;
+import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.component.ServiceComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.module.ServiceModule;
 
 public abstract class BaseService extends Service {
 
@@ -24,6 +24,6 @@ public abstract class BaseService extends Service {
     }
 
     private ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
+        return ((BaseApplication) getApplication()).getApplicationComponent();
     }
 }
