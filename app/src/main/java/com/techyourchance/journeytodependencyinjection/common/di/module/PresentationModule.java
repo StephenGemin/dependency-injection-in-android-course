@@ -1,6 +1,7 @@
 package com.techyourchance.journeytodependencyinjection.common.di.module;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +49,11 @@ public class PresentationModule {
     @Provides
     Activity getActivity() {
         return mActivity;
+    }
+
+    @Provides
+    Context context(Activity activity) {
+        return activity;
     }
 
     @Provides

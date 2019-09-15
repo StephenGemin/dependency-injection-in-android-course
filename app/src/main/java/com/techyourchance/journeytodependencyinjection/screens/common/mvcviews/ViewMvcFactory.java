@@ -10,6 +10,8 @@ import com.techyourchance.journeytodependencyinjection.screens.questiondetails.Q
 import com.techyourchance.journeytodependencyinjection.screens.questionslist.QuestionsListViewMvc;
 import com.techyourchance.journeytodependencyinjection.screens.questionslist.QuestionsListViewMvcImpl;
 
+import javax.inject.Inject;
+
 /**
  * Created by Stephen Gemin on 9/10/2019
  */
@@ -17,6 +19,7 @@ public class ViewMvcFactory {
     private final LayoutInflater mlayoutInflater;
     private final ImageLoader mImageLoader;
 
+    @Inject
     public ViewMvcFactory(LayoutInflater layoutInflater, ImageLoader imageLoader) {
         mlayoutInflater = layoutInflater;
         mImageLoader = imageLoader;
