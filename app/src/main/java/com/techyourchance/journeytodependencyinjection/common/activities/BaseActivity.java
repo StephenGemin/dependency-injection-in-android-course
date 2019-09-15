@@ -1,21 +1,21 @@
-package com.techyourchance.journeytodependencyinjection.screens.common.dialogs;
+package com.techyourchance.journeytodependencyinjection.common.activities;
 
 import android.support.annotation.UiThread;
-import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 
-import com.techyourchance.journeytodependencyinjection.common.activities.BaseApplication;
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
 
 /**
- * Created by Stephen Gemin on 9/14/2019
+ * Created by Stephen Gemin on 9/9/2019
  */
-public class BaseDialog extends DialogFragment {
+public class BaseActivity extends AppCompatActivity {
+
     private boolean mIsInjectorUsed;
 
     /**
-     * Has activity/fragment lifecycle
+     * Has activity lifecycle
      */
     @UiThread
     protected PresentationComponent getPresentationComponent() {
@@ -24,13 +24,13 @@ public class BaseDialog extends DialogFragment {
         }
         mIsInjectorUsed = true;
         return getApplicationComponent()
-                .newPresentationComponent(new PresentationModule(getActivity()));
+                .newPresentationComponent(new PresentationModule(this));
     }
 
     /**
      * Has application lifecycle
      */
     private ApplicationComponent getApplicationComponent() {
-        return ((BaseApplication) getActivity().getApplication()).getApplicationComponent();
+        return ((BaseApplication) getApplication()).getApplicationComponent();
     }
 }
