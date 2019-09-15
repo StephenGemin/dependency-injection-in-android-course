@@ -34,15 +34,4 @@ public class ApplicationModule {
     StackoverflowApi getStackoverflowApi(Retrofit retrofit) {
         return retrofit.create(StackoverflowApi.class);
     }
-
-    @Provides
-    FetchQuestionsListUseCase getFetchQuestionsListUseCase(StackoverflowApi stackoverflowApi) {
-        return new FetchQuestionsListUseCase(stackoverflowApi);
-    }
-
-    @Provides
-    FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi) {
-        return new FetchQuestionDetailsUseCase(stackoverflowApi);
-    }
-
 }

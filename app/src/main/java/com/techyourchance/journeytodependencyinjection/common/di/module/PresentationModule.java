@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
+import com.techyourchance.journeytodependencyinjection.networking.StackoverflowApi;
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionDetailsUseCase;
 import com.techyourchance.journeytodependencyinjection.questions.FetchQuestionsListUseCase;
 import com.techyourchance.journeytodependencyinjection.screens.common.ImageLoader;
@@ -47,6 +48,16 @@ public class PresentationModule {
     @Provides
     Activity getActivity() {
         return mActivity;
+    }
+
+    @Provides
+    FetchQuestionsListUseCase getFetchQuestionsListUseCase(StackoverflowApi stackoverflowApi) {
+        return new FetchQuestionsListUseCase(stackoverflowApi);
+    }
+
+    @Provides
+    FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi) {
+        return new FetchQuestionDetailsUseCase(stackoverflowApi);
     }
 
     @Provides

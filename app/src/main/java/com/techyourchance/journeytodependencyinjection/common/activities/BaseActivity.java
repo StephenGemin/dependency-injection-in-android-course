@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerApplicationComponent;
-import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerPresentationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.module.ApplicationModule;
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
@@ -26,10 +25,8 @@ public class BaseActivity extends AppCompatActivity {
             throw new RuntimeException("There is no need to use injector more than once");
         }
         mIsInjectorUsed = true;
-        return DaggerPresentationComponent.builder()
-                .presentationModule(new PresentationModule(this))
-                .applicationComponent(getApplicationComponent())
-                .build();
+        return getApplicationComponent()
+                .newPresentationComponent(new PresentationModule(this));
     }
 
     /**

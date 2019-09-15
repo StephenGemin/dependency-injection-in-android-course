@@ -6,12 +6,12 @@ import com.techyourchance.journeytodependencyinjection.screens.questiondetails.Q
 import com.techyourchance.journeytodependencyinjection.screens.questionslist.QuestionsListActivity;
 
 import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by Stephen Gemin on 9/13/2019
  */
-@PresentationScope
-@Component(dependencies = ApplicationComponent.class, modules = PresentationModule.class)
+@Subcomponent(modules = PresentationModule.class)
 public interface PresentationComponent {
     void inject(QuestionsListActivity questionsListActivity);
     void inject(QuestionDetailsActivity questionDetailsActivity);
