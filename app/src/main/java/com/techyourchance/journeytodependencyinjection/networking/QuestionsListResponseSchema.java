@@ -1,7 +1,6 @@
 package com.techyourchance.journeytodependencyinjection.networking;
 
 import com.google.gson.annotations.SerializedName;
-import com.techyourchance.journeytodependencyinjection.questions.Question;
 import com.techyourchance.journeytodependencyinjection.questions.QuestionSchema;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.techyourchance.journeytodependencyinjection.screens.common.mvcviews;
 
-import android.media.Image;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

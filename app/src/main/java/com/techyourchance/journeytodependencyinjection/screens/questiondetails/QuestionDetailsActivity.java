@@ -11,6 +11,8 @@
  import com.techyourchance.journeytodependencyinjection.screens.common.dialogs.ServerErrorDialogFragment;
  import com.techyourchance.journeytodependencyinjection.screens.common.mvcviews.ViewMvcFactory;
 
+ import javax.inject.Inject;
+
  public class QuestionDetailsActivity extends BaseActivity implements
          QuestionDetailsViewMvc.Listener, FetchQuestionDetailsUseCase.Listener {
 
@@ -24,14 +26,14 @@
 
      private String mQuestionId;
      private QuestionDetailsViewMvc mViewMvc;
-     public FetchQuestionDetailsUseCase mfetchQuestionDetailsUseCase;
-     public DialogsManager mDialogsManager;
-     public ViewMvcFactory mViewMvcFactory;
+     @Inject public FetchQuestionDetailsUseCase mfetchQuestionDetailsUseCase;
+     @Inject public DialogsManager mDialogsManager;
+     @Inject public ViewMvcFactory mViewMvcFactory;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         getInjector().inject(this);
+         getPresentationComponent().inject(this);
 
          mViewMvc = mViewMvcFactory.newInstance(
                  QuestionDetailsViewMvc.class,null);

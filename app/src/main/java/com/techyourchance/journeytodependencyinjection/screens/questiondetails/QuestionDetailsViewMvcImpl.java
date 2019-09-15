@@ -1,6 +1,5 @@
 package com.techyourchance.journeytodependencyinjection.screens.questiondetails;
 
-import android.media.Image;
 import android.os.Build;
 import android.text.Html;
 import android.view.LayoutInflater;
