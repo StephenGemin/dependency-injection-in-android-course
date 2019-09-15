@@ -51,11 +51,6 @@ public class PresentationModule {
     }
 
     @Provides
-    FetchQuestionsListUseCase getFetchQuestionsListUseCase(StackoverflowApi stackoverflowApi) {
-        return new FetchQuestionsListUseCase(stackoverflowApi);
-    }
-
-    @Provides
     FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi) {
         return new FetchQuestionDetailsUseCase(stackoverflowApi);
     }
