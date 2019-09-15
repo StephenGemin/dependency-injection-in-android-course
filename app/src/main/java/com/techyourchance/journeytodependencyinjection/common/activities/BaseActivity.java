@@ -4,9 +4,7 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
-import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
-import com.techyourchance.journeytodependencyinjection.common.di.module.ApplicationModule;
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
 
 /**

@@ -15,7 +15,7 @@ public class BaseFragment extends Fragment {
     private boolean mIsInjectorUsed;
 
     /**
-     * Has activity lifecycle
+     * Has fragment lifecycle
      */
     @UiThread
     protected PresentationComponent getPresentationComponent() {
