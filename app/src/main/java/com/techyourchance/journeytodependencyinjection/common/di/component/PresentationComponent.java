@@ -1,7 +1,6 @@
 package com.techyourchance.journeytodependencyinjection.common.di.component;
 
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
-import com.techyourchance.journeytodependencyinjection.common.di.scope.PresentationScope;
 import com.techyourchance.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 import com.techyourchance.journeytodependencyinjection.screens.questionslist.QuestionsListActivity;
 

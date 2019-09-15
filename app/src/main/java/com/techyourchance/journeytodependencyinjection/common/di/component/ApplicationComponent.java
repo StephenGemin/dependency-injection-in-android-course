@@ -15,6 +15,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, NetworkModule.class})
 public interface ApplicationComponent {
+
     PresentationComponent newPresentationComponent(PresentationModule presentationModule);
+
     ServiceComponent newServiceComponent(ServiceModule serviceModule);
 }
