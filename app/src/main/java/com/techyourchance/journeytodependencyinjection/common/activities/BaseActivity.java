@@ -4,8 +4,10 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 
 import com.techyourchance.journeytodependencyinjection.common.di.component.ApplicationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerApplicationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.DaggerPresentationComponent;
 import com.techyourchance.journeytodependencyinjection.common.di.component.PresentationComponent;
+import com.techyourchance.journeytodependencyinjection.common.di.module.ApplicationModule;
 import com.techyourchance.journeytodependencyinjection.common.di.module.PresentationModule;
 
 /**
@@ -25,7 +27,8 @@ public class BaseActivity extends AppCompatActivity {
         }
         mIsInjectorUsed = true;
         return DaggerPresentationComponent.builder()
-                .presentationModule(new PresentationModule(getApplicationComponent(), this))
+                .presentationModule(new PresentationModule(this))
+                .applicationComponent(getApplicationComponent())
                 .build();
     }
 

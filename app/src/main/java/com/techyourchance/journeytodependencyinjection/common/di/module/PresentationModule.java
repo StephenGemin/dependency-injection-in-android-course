@@ -24,10 +24,8 @@ import dagger.Provides;
 public class PresentationModule {
 
     private final FragmentActivity mActivity;
-    private final ApplicationComponent mApplicationComponent;
 
-    public PresentationModule (ApplicationComponent applicationComponent, FragmentActivity fragmentActivity) {
-        mApplicationComponent = applicationComponent;
+    public PresentationModule (FragmentActivity fragmentActivity) {
         mActivity = fragmentActivity;
     }
 
@@ -49,16 +47,6 @@ public class PresentationModule {
     @Provides
     Activity getActivity() {
         return mActivity;
-    }
-
-    @Provides
-    FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase() {
-        return mApplicationComponent.getFetchQuestionDetailsUseCase();
-    }
-
-    @Provides
-    FetchQuestionsListUseCase getFetchQuestionsListUseCase() {
-        return mApplicationComponent.getFetchQuestionsListUseCase();
     }
 
     @Provides
